@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "My Go Extension",
+  "description": "A simple Firefox extension built with Go and WebAssembly",
+  "version": "1.0",
+  "permissions": ["<all_urls>", "activeTab"],
+  "content_scripts": [
+    {
+      "js": ["wasm_exec.js,loadWasm.js,main.js"],
+      "matches": ["*://*.youtube.com/watch*"],
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": ["main.wasm"]
+}
