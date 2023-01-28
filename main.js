@@ -1,14 +1,23 @@
-var downloadButton = document.createElement("button")
-downloadButton.innerHTML = "Download"
-downloadButton.style.marginTop = "10px"
-downloadButton.style.backgroundColor = "#4CAF50";
-downloadButton.style.color = "white"
-downloadButton.style.border = "none"
-downloadButton.style.textDecoration = "none";
+let currentUrl
+let backgroundPage = browser.extension.getBackgroundPage();
 
-var player = document.getElementById("player")
-player.appendChild(downloadButton)
+browser.browserAction.onClicked.addListener(() => {
+    backgroundPage.getUrl()
+});
+
+
+
+document.getElementById("yt_view").src = currentUrl
+
+
+downloadButton = document.getElementById("download")
 
 downloadButton.addEventListener("click", function () {
-    downloadVideo(window.location.href)
+    downloadVideo(currentUrl)
 })
+
+browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.msg === "found-url") {
+        console.log("Received URL : " + request.url);
+    }
+});

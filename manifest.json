@@ -3,13 +3,22 @@
   "name": "My Go Extension",
   "description": "A simple Firefox extension built with Go and WebAssembly",
   "version": "1.0",
-  "permissions": ["<all_urls>", "activeTab"],
-  "content_scripts": [
-    {
-      "js": ["wasm_exec.js,loadWasm.js,main.js"],
-      "matches": ["*://*.youtube.com/watch*"],
-      "all_frames": true
+  "permissions": ["<all_urls>", "activeTab", "tabs"],
+  "background": {
+    "scripts": ["wasm_exec.js", "background.js"]
+  },
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": "icons/page-32.png",
+    "default_title": "Latest download",
+    "default_popup": "main.html"
+  },
+  "icons": {
+    "48": "icons/page-48.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "strict_min_version": "57.0a1"
     }
-  ],
-  "web_accessible_resources": ["main.wasm"]
+  }
 }
