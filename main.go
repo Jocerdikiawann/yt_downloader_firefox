@@ -47,7 +47,7 @@ func downloadVideo(this js.Value, args []js.Value) interface{} {
 }
 
 func main() {
-	c := make(chan int)
+	c := make(chan struct{})
 	js.Global().Set("downloadVideo", js.FuncOf(downloadVideo))
 	<-c
 }

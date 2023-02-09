@@ -1,20 +1,28 @@
 {
   "manifest_version": 2,
-  "name": "My Go Extension",
+  "name": "Youtube Downloader WASM",
   "description": "A simple Firefox extension built with Go and WebAssembly",
   "version": "1.0",
-  "permissions": ["<all_urls>", "activeTab", "tabs"],
+  "permissions": ["tabs"],
   "background": {
-    "scripts": ["wasm_exec.js", "background.js"]
+    "scripts": ["background/wasm_exec.js", "background/background.js"]
   },
   "browser_action": {
     "browser_style": true,
-    "default_icon": "icons/page-32.png",
-    "default_title": "Latest download",
-    "default_popup": "main.html"
+    "default_icon": "icons/icon_32.png",
+    "default_title": "Youtube Downloader WASM"
   },
+  "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'; default-src 'none'",
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": ["*://*.youtube.com/watch*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "web_accessible_resources": ["background/main.wasm"],
   "icons": {
-    "48": "icons/page-48.png"
+    "32": "icons/icon_32.png"
   },
   "browser_specific_settings": {
     "gecko": {
